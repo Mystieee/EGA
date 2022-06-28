@@ -1,0 +1,38 @@
+.register {
+  margin-top: 70px;
+}
+
+.registerTitle {
+  display: flex;
+  flex-direction: column;
+  align-items: justify;
+  color: #444444;
+  font-size: 30px;
+}
+
+.registerButton {
+  margin-top: 30px;
+  height: 45px;
+  width: 100px;
+}
+
+.btn-primary {
+  background-color: #24258f !important;
+}
+.btn-primary:hover,
+.btn-primary:active {
+  background-color: #3031be !important;
+}
+
+.registerSuccessTitle {
+  display: flex;
+  flex-direction: column;
+  align-items: justify;
+  color: #009000;
+  font-size: 30px;
+}
+.registerSuccessLoginButton {
+  margin-top: 30px;
+  height: 45px;
+  width: 100px;
+}

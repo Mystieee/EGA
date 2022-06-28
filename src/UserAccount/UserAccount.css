@@ -1,0 +1,18 @@
+.profilePhoto {
+  height: 300px;
+  width: 200px;
+  padding: 25px;
+}
+.userAccountButton1 {
+  margin-right: 10px;
+  width: 150px;
+}
+.userAccountButton2 {
+ 
+  width: 150px;
+  background-color: #ffa630 !important;
+}
+.userAccountButton2:hover,
+.userAccountButton2:active {
+  background-color: #f17720 !important;
+}

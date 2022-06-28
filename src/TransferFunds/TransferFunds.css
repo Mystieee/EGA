@@ -1,0 +1,13 @@
+.button1 {
+  margin-right: 10px;
+  width: 150px;
+}
+.button2 {
+  width: 150px;
+  background-color: #ffa630 !important;
+}
+.button2:hover,
+.button2:active {
+  background-color: #f17720 !important;
+}
+

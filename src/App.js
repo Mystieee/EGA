@@ -1,23 +1,28 @@
-import logo from './logo.svg';
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom"
 import './App.css';
-
+import Register from "./Register/Register"
+import Topbar from "./Topbar/Topbar"
+import Home from "./Home/Home"
+import Login from "./Login/Login"
+import RegisterSuccess from "./Register/RegisterSuccess";
+import UserAccount from "./UserAccount/UserAccount"
+import TransferFunds from "./TransferFunds/TransferFunds"
 function App() {
+  const currentUser = true;
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+
+      <Router>
+        <Topbar />
+        <Routes>
+          <Route path="/" element={<Home />}></Route>
+          <Route path="/login" element={<Login />}></Route>
+          <Route path="/register" element={<Register />}></Route>
+          <Route path="/registerSuccess" element={<RegisterSuccess />}></Route>
+          <Route path="/userAccoutDetails" element={<UserAccount />}></Route>
+          <Route path="/transferFunds" element={<TransferFunds />}></Route>
+        </Routes>
+      </Router>
     </div>
   );
 }
