@@ -17,60 +17,18 @@ function Register(props) {
   };
   const submitForm = e => {
     e.preventDefault();
-    console.log("data:" + data);
 
     UserService.addUserInfo(data)
       .then(response => {
-        console.log("response:" + response.json());
         response.json().then(val => {
           console.log("Successful" + val);
         });
       })
       .catch(error => {
         if (error.response) {
-          console.log("error -->", error.response);
+          console.log("Error in Response", error.response);
         }
       });
-
-    //generate accountNumber
-    generateAccountNumber(API);
-    if (loading) {
-      return "..loading";
-    } else {
-      console.log("Account number after geenrate", newAccountNum);
-      navigate("/registerSuccess", {
-        state: { accountNo: newAccountNum }
-      });
-    }
-
-    createUserAccount();
-  };
-
-  const generateAccountNumber = async API => {
-    console.log("inside generateAccountNumber, loading ?", loading);
-    setLoading(true);
-    await axios
-      .get(API)
-      .then(response => {
-        console.log("-->this", response.data);
-        setNewAccountNum(response.data);
-        sleep(5000);
-        setLoading(false);
-      })
-      .catch(err => {
-        setError(true);
-        console.log("->catch", error);
-      })
-      .finally(() => {
-        console.log("finally", error);
-      });
-  };
-  const sleep = milliseconds => {
-    const date = Date.now();
-    let currentDate = null;
-    do {
-      currentDate = Date.now();
-    } while (currentDate - date < milliseconds);
   };
 
   return (

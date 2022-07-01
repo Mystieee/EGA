@@ -30,11 +30,8 @@ function Login(props) {
           const db_loginname = data.loginName;
           const db_password = data.password;
 
-          console.log("DB", db_loginname, db_password);
           if (loginName !== "" && db_loginname === loginName) {
-            console.log("login name matches");
             if (password !== "" && db_password === password) {
-              console.log("paswword matches");
               setValidUser(true);
             }
           }

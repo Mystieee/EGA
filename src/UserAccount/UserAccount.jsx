@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Button, Card, Col, Row } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import TransactionDetails from "../TransactionDetails/TransactionDetails";
@@ -6,22 +6,27 @@ import profilePhoto from "./profilePhoto.jpg";
 import { useLocation } from "react-router-dom";
 import "./UserAccount.css";
 import axios from "axios";
+import Context1 from "../Context1";
 
 function UserAccount(props) {
   const [data, setData] = useState([]);
+  const [accountData, setAccountData] = useState([]);
   const [error, setError] = useState(false);
   const [loginName, setLoginName] = useState();
   const [transactionFlag, setTransactionFlag] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
 
-  const API = `http://localhost:9091/api/users/find?loginName=${loginName}`;
+  const accountNumber = useContext(Context1);
+  console.log("Transa details", accountNumber);
+
+  const UserAPI = `http://localhost:9091/api/users/find?loginName=${loginName}`;
+  const AccountAPI = `http://localhost:9091/api/account/${data.accountNumber}`;
+
   const fetchUserDetails = API => {
-    console.log("inside fetchUserDetails");
     axios
       .get(API)
       .then(response => {
-        console.log(response.data);
         setData(response.data);
       })
       .catch(err => {
@@ -39,22 +44,41 @@ function UserAccount(props) {
         console.log("finally", error);
       });
   };
+  const fetchAccountDetails = AccountAPI => {
+    axios
+      .get(AccountAPI)
+      .then(response => {
+        setAccountData(response.data);
+      })
+      .catch(err => {
+        setError(true);
+        console.log("accountData ->catch", error);
+        if (err.response) {
+          console.log(" Error in Response", error.response.data);
+        } else if (err.request) {
+          console.log(err.request);
+        } else {
+          console.log(" Error Message: " + error);
+        }
+      })
+      .finally(() => {
+        console.log(error);
+      });
+  };
   useEffect(() => {
-    console.log(location.state);
     setLoginName(location.state.loginName);
-    fetchUserDetails(API);
-  }, [API]);
+    fetchUserDetails(UserAPI);
+    fetchAccountDetails(AccountAPI);
+  }, [UserAPI, AccountAPI]);
 
   const viewTransactions = e => {
     e.preventDefault();
     setTransactionFlag(true);
-    console.log("View Transaction data:" + transactionFlag);
   };
 
   const transferFunds = e => {
     e.preventDefault();
     navigate("/transferFunds");
-    console.log("Transfer funds:");
   };
   return (
     <div className="container login">
@@ -86,7 +110,7 @@ function UserAccount(props) {
                         <div class="col-sm-10">
                           <input
                             type="text"
-                            readonly
+                            readOnly
                             className="form-control-plaintext text-uppercase"
                             id="staticEmail"
                             value={data.firstName + " " + data.lastName}
@@ -105,10 +129,10 @@ function UserAccount(props) {
                         <div class="col-sm-6">
                           <input
                             type="text"
-                            readonly
+                            readOnly
                             class="form-control-plaintext"
                             id="staticEmail"
-                            value="1234***account number"
+                            value={data.accountNumber}
                           />
                         </div>
                       </div>
@@ -122,10 +146,10 @@ function UserAccount(props) {
                         <div class="col-sm-6">
                           <input
                             type="text"
-                            readonly
+                            readOnly
                             class="form-control-plaintext"
                             id="staticEmail"
-                            value="AED xxx"
+                            value={"AED " + accountData.currentBalance}
                           />
                         </div>
                       </div>

@@ -1,7 +1,11 @@
-import React from "react";
+import React, { useContext, useEffect } from "react";
 import { Table } from "react-bootstrap";
+import Context1 from "../Context1";
 
-function TransactionDetails(props) {
+const TransactionDetails = () => {
+  const accountNumber = useContext(Context1);
+  console.log("Transa details", accountNumber);
+
   return (
     <div>
       <Table striped bordered hover size="sm">
@@ -35,6 +39,6 @@ function TransactionDetails(props) {
       </Table>
     </div>
   );
-}
+};
 
 export default TransactionDetails;
